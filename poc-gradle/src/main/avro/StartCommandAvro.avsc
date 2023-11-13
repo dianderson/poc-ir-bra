@@ -10,13 +10,6 @@
     {
       "name": "year",
       "type": "int"
-    },
-    {
-      "name": "products",
-      "type": {
-        "type": "array",
-        "items": "string"
-      }
     }
   ]
 }

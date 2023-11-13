@@ -1,8 +1,5 @@
-package br.com.bra.pocgradle.domains.my_account.usecases;
+package br.com.bra.pocgradle.domains.my_account;
 
-import br.com.bra.pocgradle.domains.my_account.inputs.MyAccountInput;
-import br.com.bra.pocgradle.domains.my_account.ports.MyAccountClientPort;
-import br.com.bra.pocgradle.domains.my_account.ports.MyAccountKafkaPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

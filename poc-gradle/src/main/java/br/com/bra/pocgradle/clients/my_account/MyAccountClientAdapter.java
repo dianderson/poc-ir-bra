@@ -1,8 +1,8 @@
 package br.com.bra.pocgradle.clients.my_account;
 
-import br.com.bra.pocgradle.domains.my_account.inputs.MyAccountInput;
-import br.com.bra.pocgradle.domains.my_account.models.MyAccountModel;
-import br.com.bra.pocgradle.domains.my_account.ports.MyAccountClientPort;
+import br.com.bra.pocgradle.domains.my_account.MyAccountInput;
+import br.com.bra.pocgradle.domains.my_account.MyAccountModel;
+import br.com.bra.pocgradle.domains.my_account.MyAccountClientPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

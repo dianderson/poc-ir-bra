@@ -1,9 +1,9 @@
 package br.com.bra.pocgradle.kafka.consumer;
 
 import br.com.bra.pocgradle.avro.StartCommandAvro;
-import br.com.bra.pocgradle.domains.my_account.inputs.MyAccountInput;
-import br.com.bra.pocgradle.domains.my_account.usecases.ProcessMyAccount;
-import br.com.bra.pocgradle.kafka.producer.ExceptionProducer;
+import br.com.bra.pocgradle.domains.my_account.MyAccountInput;
+import br.com.bra.pocgradle.domains.my_account.ProcessMyAccount;
+import br.com.bra.pocgradle.kafka.producer.ExceptionMessagesProducer;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.logging.log4j.LogManager;
@@ -17,10 +17,10 @@ import org.springframework.stereotype.Component;
 public class MyAccountConsumer {
     private static final Logger logger = LogManager.getLogger(MyAccountConsumer.class);
     private final ProcessMyAccount processMyAccount;
-    private final ExceptionProducer exceptionProducer;
+    private final ExceptionMessagesProducer exceptionProducer;
 
     @KafkaListener(
-            topics = "${kafka-config.topics[1].name}",
+            topics = "${kafka-config.topics.start-command.name}",
             groupId = "${kafka-config.group-id}",
             filter = "MyAccountFilter"
     )
@@ -31,7 +31,8 @@ public class MyAccountConsumer {
             logger.info("Message consumed: " + message.value());
         } catch (Exception ex) {
             exceptionProducer.sendErrorMessage(message.value().toString(), ex.toString());
-            logger.error("Message error: " + message);
+            ack.acknowledge();
+            logger.error("Message error: " + message.value() + ex);
         }
     }
 

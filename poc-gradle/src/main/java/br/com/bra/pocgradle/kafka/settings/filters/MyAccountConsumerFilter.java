@@ -1,4 +1,4 @@
-package br.com.bra.pocgradle.kafka.consumer;
+package br.com.bra.pocgradle.kafka.settings.filters;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

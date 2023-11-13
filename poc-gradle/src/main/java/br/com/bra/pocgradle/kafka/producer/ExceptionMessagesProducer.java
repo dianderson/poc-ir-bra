@@ -13,11 +13,11 @@ import java.time.LocalDate;
 
 @Component
 @RequiredArgsConstructor
-public class ExceptionProducer {
+public class ExceptionMessagesProducer {
     private final KafkaTemplate<String, Object> kafkaTemplate;
-    @Value("${kafka-config.topics[0].name}")
+    @Value("${kafka-config.topics.exception-messages.name}")
     private String topicName;
-    @Value("${kafka-config.topics[0].ttl-in-days}")
+    @Value("${kafka-config.topics.exception-messages.ttl-in-days}")
     private Long messageTtl;
 
     public void sendErrorMessage(String message, String error) {

@@ -1,6 +1,6 @@
 package br.com.bra.pocgradle.clients.my_account;
 
-import br.com.bra.pocgradle.domains.my_account.models.MyAccountModel;
+import br.com.bra.pocgradle.domains.my_account.MyAccountModel;
 import lombok.Data;
 
 import java.math.BigDecimal;

@@ -1,14 +1,6 @@
-kafka-config:
-  topics:
-    - name: 'poc-exceptions-${spring.profiles.active}'
-      ttl-in-days: 1
-      partitions: 1
-      replication-factory: 1
-    - name: 'poc-start-command-${spring.profiles.active}'
-      ttl-in-days: 1
-      partitions: 3
-      replication-factory: 1
-    - name: 'poc-my-account-data-${spring.profiles.active}'
-      ttl-in-days: 1
-      partitions: 3
-      replication-factory: 1
+spring:
+  application:
+    name: 'poc-gradle-service'
+
+server:
+  port: 4000

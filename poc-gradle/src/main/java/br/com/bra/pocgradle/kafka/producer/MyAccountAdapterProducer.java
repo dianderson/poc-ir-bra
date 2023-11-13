@@ -1,8 +1,8 @@
 package br.com.bra.pocgradle.kafka.producer;
 
 import br.com.bra.pocgradle.avro.MyAccountDataAvro;
-import br.com.bra.pocgradle.domains.my_account.models.MyAccountModel;
-import br.com.bra.pocgradle.domains.my_account.ports.MyAccountKafkaPort;
+import br.com.bra.pocgradle.domains.my_account.MyAccountModel;
+import br.com.bra.pocgradle.domains.my_account.MyAccountKafkaPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -17,9 +17,9 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 public class MyAccountAdapterProducer implements MyAccountKafkaPort {
     private final KafkaTemplate<String, Object> kafkaTemplate;
-    @Value("${kafka-config.topics[2].name}")
+    @Value("${kafka-config.topics.my-account-data.name}")
     private String topicName;
-    @Value("${kafka-config.topics[2].ttl-in-days}")
+    @Value("${kafka-config.topics.my-account-data.ttl-in-days}")
     private Long messageTtl;
 
     @Override

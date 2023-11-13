@@ -1,4 +1,4 @@
-package br.com.bra.pocgradle.domains.my_account.models;
+package br.com.bra.pocgradle.domains.my_account;
 
 import lombok.Data;
 
