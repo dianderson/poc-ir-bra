@@ -1,4 +1,4 @@
-package br.com.bra.pocgradle.kafka.producer;
+package br.com.bra.pocgradle.kafka.common;
 
 import br.com.bra.pocgradle.avro.ErrorMessageAvro;
 import lombok.RequiredArgsConstructor;

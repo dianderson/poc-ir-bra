@@ -1,4 +1,4 @@
-package br.com.bra.pocgradle.kafka.producer;
+package br.com.bra.pocgradle.kafka.my_account;
 
 import br.com.bra.pocgradle.avro.MyAccountDataAvro;
 import br.com.bra.pocgradle.domains.my_account.MyAccountModel;

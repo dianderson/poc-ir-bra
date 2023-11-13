@@ -1,9 +1,9 @@
-package br.com.bra.pocgradle.kafka.consumer;
+package br.com.bra.pocgradle.kafka.my_account;
 
 import br.com.bra.pocgradle.avro.StartCommandAvro;
 import br.com.bra.pocgradle.domains.my_account.MyAccountInput;
 import br.com.bra.pocgradle.domains.my_account.ProcessMyAccount;
-import br.com.bra.pocgradle.kafka.producer.ExceptionMessagesProducer;
+import br.com.bra.pocgradle.kafka.common.ExceptionMessagesProducer;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.logging.log4j.LogManager;

@@ -1,4 +1,4 @@
-package br.com.bra.pocgradle.kafka.settings;
+package br.com.bra.pocgradle.kafka.common;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

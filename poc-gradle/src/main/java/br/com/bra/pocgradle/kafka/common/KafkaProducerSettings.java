@@ -1,4 +1,4 @@
-package br.com.bra.pocgradle.kafka.settings;
+package br.com.bra.pocgradle.kafka.common;
 
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import io.confluent.kafka.serializers.KafkaAvroSerializerConfig;
