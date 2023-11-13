@@ -1,0 +1,19 @@
+{
+  "name": "MyAccountDataAvro",
+  "type": "record",
+  "namespace": "br.com.bra.pocgradle.avro",
+  "fields": [
+    {
+      "name": "cpf",
+      "type": "string"
+    },
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "amout",
+      "type": "string"
+    }
+  ]
+}

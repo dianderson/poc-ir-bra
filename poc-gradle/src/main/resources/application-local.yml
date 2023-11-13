@@ -1,0 +1,8 @@
+clients:
+  my-account: 'localhost:3000/my-account'
+
+kafka-config:
+  server-url: localhost:9092
+  schema-registry-url: http://localhost:8081
+  group-id: 'poc-gradle-${spring.profiles.active}'
+  concurrency: 5
