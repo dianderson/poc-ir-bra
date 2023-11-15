@@ -6,6 +6,6 @@ CREATE TABLE income_data
     is_finished boolean,
     status      varchar(15),
     pdf_data    text,
-    created_at  timestamp not null,
-    primary key (cpf, year, product, is_finished)
+    updated_at  timestamp not null,
+    primary key (cpf, year, product)
 )

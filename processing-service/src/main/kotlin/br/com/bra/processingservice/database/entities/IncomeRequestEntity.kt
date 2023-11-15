@@ -2,16 +2,15 @@ package br.com.bra.processingservice.database.entities
 
 import br.com.bra.processingservice.common.enums.ProductEnum
 import br.com.bra.processingservice.domains.models.IncomeRequestModel
-import jakarta.persistence.Column
-import jakarta.persistence.EmbeddedId
-import jakarta.persistence.Entity
-import jakarta.persistence.Table
+import jakarta.persistence.*
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
+import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDateTime
 
 @Entity
-@Table(name = "income_reports")
+@Table(name = "income_request")
+@EntityListeners(AuditingEntityListener::class)
 data class IncomeRequestEntity(
     @field:EmbeddedId
     val id: IncomeRequestPK,
@@ -19,10 +18,10 @@ data class IncomeRequestEntity(
     val awaitingProcessing: String? = null,
     @field:CreatedDate
     @field:Column(name = "created_at")
-    var createdAt: LocalDateTime,
+    var createdAt: LocalDateTime? = null,
     @field:LastModifiedDate
     @field:Column(name = "updated_at")
-    var updatedAt: LocalDateTime
+    var updatedAt: LocalDateTime? = null
 ) {
     fun toIncomeRequestModel() = IncomeRequestModel(
         cpf = id.cpf,
@@ -32,7 +31,6 @@ data class IncomeRequestEntity(
 
     fun removeProduct(product: ProductEnum): IncomeRequestEntity =
         copy(
-            awaitingProcessing = awaitingProcessing?.removePrefix("${product.ref}-")
-                ?.takeIf { it.isNotEmpty() }
+            awaitingProcessing = awaitingProcessing?.removePrefix("${product.ref},")?.takeIf { it.isNotEmpty() }
         )
 }

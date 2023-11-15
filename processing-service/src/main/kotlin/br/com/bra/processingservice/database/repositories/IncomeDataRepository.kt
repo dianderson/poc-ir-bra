@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface IncomeDataRepository : JpaRepository<IncomeDataEntity, IncomeDataPK> {
-    fun findAllByIdCpfAndIdYearAndIdIsFinishedAndIdProductIn(
+    fun findAllByIdCpfAndIdYearAndIsFinishedAndIdProductIn(
         cpf: String,
         year: Int,
         isFinished: Boolean,

@@ -1,7 +1,10 @@
 package br.com.bra.processingservice.database.entities
 
 import br.com.bra.processingservice.common.enums.ProductEnum
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.Embeddable
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import java.io.Serializable
 
 @Embeddable
@@ -12,7 +15,5 @@ data class IncomeDataPK(
     val year: Int,
     @field:Column(name = "product")
     @field:Enumerated(EnumType.STRING)
-    val product: ProductEnum,
-    @field:Column(name = "is_finished")
-    val isFinished: Boolean
+    val product: ProductEnum
 ) : Serializable
