@@ -1,6 +1,21 @@
 version: '3.9'
 
 services:
+  postgres:
+    image: postgres:16.1-alpine
+    container_name: postgres
+    environment:
+      POSTGRES_USER: dsuser@PDIRDB00
+      POSTGRES_PASSWORD: dspass@PDIRDB00
+      POSTGRES_DB: PDIRDB00
+    volumes:
+      - ./backup/postgres/data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - local-network
+
   zookeeper:
     image: confluentinc/cp-zookeeper:7.4.3
     container_name: zookeeper
@@ -95,29 +110,6 @@ services:
       PORT: 9021
     networks:
       - local-network
-
-  app:
-    image: poc-pdir-integration-service:latest
-    container_name: poc-pdir-integration-service
-    depends_on:
-      kafka:
-        condition: service_started
-      schema-registry:
-        condition: service_started
-      control-center:
-        condition: service_started
-    build:
-      context: ./
-      args:
-        - JAR_FILE=build/libs/\*.jar
-    tty: true
-    stdin_open: true
-    environment:
-      - SPRING_PROFILES_ACTIVE=local
-    networks:
-      - local-network
-    ports:
-      - "4000:4000"
 
 networks:
   local-network:

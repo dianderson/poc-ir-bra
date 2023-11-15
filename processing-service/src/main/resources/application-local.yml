@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: 'jdbc:postgresql://localhost:5432/PDIRDB00'
+    username: 'dsuser@PDIRDB00'
+    password: 'dspass@PDIRDB00'

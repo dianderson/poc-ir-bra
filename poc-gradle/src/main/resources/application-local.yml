@@ -7,11 +7,10 @@ kafka-config:
   group-id: 'poc-gradle-local'
   concurrency: 5
   topics:
+    request-data:
+      name: 'poc-request-data-local'
     exception-messages:
       name: 'poc-exception-messages-local'
-      ttl-in-days: 1
-    start-command:
-      name: 'poc-start-command-local'
       ttl-in-days: 1
     my-account-data:
       name: 'poc-my-account-data-local'

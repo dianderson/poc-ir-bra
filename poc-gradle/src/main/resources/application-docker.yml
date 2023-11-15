@@ -2,16 +2,16 @@ clients:
   my-account: 'localhost:3000/my-account'
 
 kafka-config:
-  server-url: localhost:9092
-  schema-registry-url: http://localhost:8081
-  group-id: 'poc-gradle-local'
+  server-url: kafka:9092
+  schema-registry-url: http://schema-registry:8081
+  group-id: 'poc-gradle-docker'
   concurrency: 5
   topics:
     request-data:
-      name: 'poc-request-data-local'
+      name: 'poc-request-data-docker'
     exception-messages:
-      name: 'poc-exception-messages-local'
+      name: 'poc-exception-messages-docker'
       ttl-in-days: 1
     my-account-data:
-      name: 'poc-my-account-data-local'
+      name: 'poc-my-account-data-docker'
       ttl-in-days: 1

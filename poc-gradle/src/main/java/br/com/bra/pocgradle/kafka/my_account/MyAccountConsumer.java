@@ -20,7 +20,7 @@ public class MyAccountConsumer {
     private final ExceptionMessagesProducer exceptionProducer;
 
     @KafkaListener(
-            topics = "${kafka-config.topics.start-command.name}",
+            topics = "${kafka-config.topics.request-data.name}",
             groupId = "${kafka-config.group-id}",
             filter = "MyAccountFilter"
     )
