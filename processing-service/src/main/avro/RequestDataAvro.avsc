@@ -1,0 +1,15 @@
+{
+  "name": "RequestDataAvro",
+  "type": "record",
+  "namespace": "br.com.bra.processingservice.avro",
+  "fields": [
+    {
+      "name": "cpf",
+      "type": "string"
+    },
+    {
+      "name": "year",
+      "type": "int"
+    }
+  ]
+}

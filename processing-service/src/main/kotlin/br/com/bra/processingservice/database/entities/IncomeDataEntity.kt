@@ -1,18 +1,29 @@
 package br.com.bra.processingservice.database.entities
 
 import br.com.bra.processingservice.common.enums.ProcessingStatusEnum
-import jakarta.persistence.Column
-import jakarta.persistence.EmbeddedId
-import jakarta.persistence.Entity
-import jakarta.persistence.Table
+import br.com.bra.processingservice.domains.models.IncomeDataModel
+import jakarta.persistence.*
+import org.springframework.data.annotation.CreatedDate
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = "income_data")
 data class IncomeDataEntity(
     @field:EmbeddedId
-    val incomeId: IncomeDataPK,
+    val id: IncomeDataPK,
     @field:Column(name = "status")
-    val status: ProcessingStatusEnum,
+    @field:Enumerated(EnumType.STRING)
+    val status: ProcessingStatusEnum? = null,
     @field:Column(name = "pdf_data")
-    val pdfData: String
-)
+    val pdfData: String? = null,
+    @field:CreatedDate
+    @field:Column(name = "created_at")
+    var createdAt: LocalDateTime? = null
+) {
+    fun toIncomeDataModel() = IncomeDataModel(
+        product = id.product,
+        isFinished = id.isFinished,
+        status = status ?: ProcessingStatusEnum.PROCESSING_ERROR,
+        pdfData = pdfData ?: ""
+    )
+}

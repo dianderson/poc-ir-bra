@@ -3,3 +3,20 @@ spring:
     url: 'jdbc:postgresql://localhost:5432/PDIRDB00'
     username: 'dsuser@PDIRDB00'
     password: 'dspass@PDIRDB00'
+
+kafka-config:
+  server-url: localhost:9092
+  schema-registry-url: http://localhost:8081
+  concurrency: 5
+  topics:
+    exception-messages:
+      name: 'poc-pdir-exception-messages-local'
+    request-data:
+      name: 'poc-pdir-request-data-local'
+      ttl-in-days: 1
+    my-account-data:
+      name: 'poc-pdir-my-account-data-local'
+      ttl-in-days: 1
+    agora-data:
+      name: 'poc-pdir-agora-data-local'
+      ttl-in-days: 1

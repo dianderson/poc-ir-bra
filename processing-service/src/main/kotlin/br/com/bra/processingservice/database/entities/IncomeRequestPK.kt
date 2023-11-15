@@ -5,9 +5,9 @@ import jakarta.persistence.Embeddable
 import java.io.Serializable
 
 @Embeddable
-data class IncomeReportPK(
+data class IncomeRequestPK(
     @field:Column(name = "cpf")
     val cpf: String,
     @field:Column(name = "year")
-    val year: String
+    val year: Int
 ) : Serializable

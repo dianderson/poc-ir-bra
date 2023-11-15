@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 @SpringBootApplication
 @EnableJpaRepositories(enableDefaultTransactions = false)
-class processingserviceApplication
+class Application
 
 fun main(args: Array<String>) {
-    runApplication<processingserviceApplication>(*args)
+    runApplication<Application>(*args)
 }

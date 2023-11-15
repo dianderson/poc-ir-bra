@@ -1,9 +1,8 @@
 package br.com.bra.processingservice.domains.ports
 
 import br.com.bra.processingservice.domains.inputs.GetIncomeReportInput
-import br.com.bra.processingservice.domains.models.IncomeReportModel
-import reactor.core.publisher.Mono
+import br.com.bra.processingservice.domains.models.IncomeDataModel
 
 interface DatabasePort {
-    fun findIncomeReports(input: GetIncomeReportInput): Mono<IncomeReportModel>
+    fun findAllProcessedIncomeData(input: GetIncomeReportInput): List<IncomeDataModel>
 }

@@ -1,6 +1,6 @@
 package br.com.bra.processingservice.api.v1
 
-import br.com.bra.processingservice.common.enums.ProductsEnum
+import br.com.bra.processingservice.common.enums.ProductEnum
 import br.com.bra.processingservice.domains.inputs.GetIncomeReportInput
 import br.com.bra.processingservice.domains.models.IncomeReportModel
 import br.com.bra.processingservice.domains.resources.GetIncomeReports
@@ -12,7 +12,6 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
-import reactor.core.publisher.Mono
 
 @Validated
 @RestController
@@ -26,8 +25,8 @@ class IncomeReportsResources(
     fun findByCpfAndYear(
         @Valid @CPF @PathVariable cpf: String,
         @Valid @Min(2000) @Max(2023) @PathVariable year: Int,
-        @RequestParam products: Set<ProductsEnum>
-    ): Mono<IncomeReportModel> {
+        @RequestParam products: Set<ProductEnum>
+    ): IncomeReportModel? {
         try {
             return GetIncomeReportInput(cpf = cpf, year = year, products = products)
                 .let { getIncomeReports.execute(it) }
