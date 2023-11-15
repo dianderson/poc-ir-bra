@@ -14,9 +14,9 @@ kafka-config:
     request-data:
       name: 'poc-pdir-request-data-local'
       ttl-in-days: 1
-    my-account-data:
-      name: 'poc-pdir-my-account-data-local'
+    my-account-pdf:
+      name: 'poc-pdir-my-account-pdf-local'
       ttl-in-days: 1
-    agora-data:
-      name: 'poc-pdir-agora-data-local'
+    agora-pdf:
+      name: 'poc-pdir-agora-pdf-local'
       ttl-in-days: 1

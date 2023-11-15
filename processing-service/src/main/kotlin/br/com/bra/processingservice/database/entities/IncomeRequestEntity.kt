@@ -1,5 +1,7 @@
 package br.com.bra.processingservice.database.entities
 
+import br.com.bra.processingservice.common.enums.ProductEnum
+import br.com.bra.processingservice.domains.models.IncomeRequestModel
 import jakarta.persistence.Column
 import jakarta.persistence.EmbeddedId
 import jakarta.persistence.Entity
@@ -12,7 +14,7 @@ import java.time.LocalDateTime
 @Table(name = "income_reports")
 data class IncomeRequestEntity(
     @field:EmbeddedId
-    val incomeRequestId: IncomeRequestPK,
+    val id: IncomeRequestPK,
     @field:Column(name = "awaiting_processing")
     val awaitingProcessing: String? = null,
     @field:CreatedDate
@@ -21,4 +23,16 @@ data class IncomeRequestEntity(
     @field:LastModifiedDate
     @field:Column(name = "updated_at")
     var updatedAt: LocalDateTime
-)
+) {
+    fun toIncomeRequestModel() = IncomeRequestModel(
+        cpf = id.cpf,
+        year = id.year,
+        awaitingProcessing
+    )
+
+    fun removeProduct(product: ProductEnum): IncomeRequestEntity =
+        copy(
+            awaitingProcessing = awaitingProcessing?.removePrefix("${product.ref}-")
+                ?.takeIf { it.isNotEmpty() }
+        )
+}

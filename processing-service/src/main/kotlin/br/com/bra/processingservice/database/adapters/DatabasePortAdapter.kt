@@ -1,10 +1,16 @@
 package br.com.bra.processingservice.database.adapters
 
+import br.com.bra.processingservice.database.entities.IncomeDataEntity
+import br.com.bra.processingservice.database.entities.IncomeRequestPK
 import br.com.bra.processingservice.database.repositories.IncomeDataRepository
 import br.com.bra.processingservice.database.repositories.IncomeRequestRepository
+import br.com.bra.processingservice.domains.inputs.CreatePdfDataInput
 import br.com.bra.processingservice.domains.inputs.GetIncomeReportInput
 import br.com.bra.processingservice.domains.models.IncomeDataModel
+import br.com.bra.processingservice.domains.models.IncomeRequestModel
 import br.com.bra.processingservice.domains.ports.DatabasePort
+import jakarta.persistence.EntityNotFoundException
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 
 @Component
@@ -19,4 +25,17 @@ class DatabasePortAdapter(
             isFinished = true,
             products = input.products
         ).map { it.toIncomeDataModel() }
+
+    override fun createPdfData(input: CreatePdfDataInput) =
+        incomeDataRepository.save(IncomeDataEntity(input))
+            .toIncomeDataModel()
+
+    override fun removeProduct(input: CreatePdfDataInput): IncomeRequestModel =
+        getIncomeRequestEntity(input.cpf, input.year)
+            .removeProduct(input.product)
+            .toIncomeRequestModel()
+
+    private fun getIncomeRequestEntity(cpf: String, year: Int) =
+        incomeRequestRepository.findByIdOrNull(IncomeRequestPK(cpf, year))
+            ?: throw EntityNotFoundException("Deveria ter!!!")
 }
