@@ -1,8 +1,8 @@
-package br.com.bra.integrationservice.kafka.my_account;
+package br.com.bra.integrationservice.kafka.agora;
 
 import br.com.bra.integrationservice.avro.RequestDataAvro;
-import br.com.bra.integrationservice.domains.my_account.inputs.MyAccountInput;
-import br.com.bra.integrationservice.domains.my_account.resources.ProcessMyAccount;
+import br.com.bra.integrationservice.domains.agora.inputs.AgoraInput;
+import br.com.bra.integrationservice.domains.agora.resources.ProcessAgora;
 import br.com.bra.integrationservice.kafka.common.ExceptionMessagesProducer;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -14,19 +14,19 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class MyAccountConsumer {
-    private static final Logger logger = LogManager.getLogger(MyAccountConsumer.class);
-    private final ProcessMyAccount processMyAccount;
+public class AgoraConsumer {
+    private static final Logger logger = LogManager.getLogger(AgoraConsumer.class);
+    private final ProcessAgora processAgora;
     private final ExceptionMessagesProducer exceptionProducer;
 
     @KafkaListener(
             topics = "${kafka-config.topics.request-data.name}",
             groupId = "${kafka-config.group-id}",
-            filter = "myAccountFilter"
+            filter = "agoraFilter"
     )
     void onListener(ConsumerRecord<String, RequestDataAvro> message, Acknowledgment ack) {
         try {
-            processMyAccount.execute(toInput(message.value()));
+            processAgora.execute(toInput(message.value()));
             ack.acknowledge();
             logger.info("Message consumed: " + message.value());
         } catch (Exception ex) {
@@ -36,8 +36,8 @@ public class MyAccountConsumer {
         }
     }
 
-    private MyAccountInput toInput(RequestDataAvro avro) {
-        MyAccountInput input = new MyAccountInput();
+    private AgoraInput toInput(RequestDataAvro avro) {
+        AgoraInput input = new AgoraInput();
         input.setCpf(avro.getCpf());
         input.setYear(avro.getYear());
         return input;

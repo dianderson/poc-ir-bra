@@ -1,5 +1,5 @@
 {
-  "name": "StartCommandAvro",
+  "name": "RequestDataAvro",
   "type": "record",
   "namespace": "br.com.bra.integrationservice.avro",
   "fields": [

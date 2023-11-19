@@ -1,5 +1,5 @@
 {
-  "name": "MyAccountDataAvro",
+  "name": "AgoraDataAvro",
   "type": "record",
   "namespace": "br.com.bra.integrationservice.avro",
   "fields": [

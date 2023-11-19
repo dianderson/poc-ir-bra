@@ -1,9 +1,9 @@
-package br.com.bra.integrationservice.kafka.my_account;
+package br.com.bra.integrationservice.kafka.agora;
 
-import br.com.bra.integrationservice.avro.MyAccountDataAvro;
+import br.com.bra.integrationservice.avro.AgoraDataAvro;
 import br.com.bra.integrationservice.common.ProcessingStatusEnum;
-import br.com.bra.integrationservice.domains.my_account.models.MyAccountModel;
-import br.com.bra.integrationservice.domains.my_account.ports.MyAccountKafkaPort;
+import br.com.bra.integrationservice.domains.agora.models.AgoraModel;
+import br.com.bra.integrationservice.domains.agora.ports.AgoraKafkaPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -16,7 +16,7 @@ import java.time.LocalDate;
 
 @Component
 @RequiredArgsConstructor
-public class MyAccountAdapterProducer implements MyAccountKafkaPort {
+public class AgoraAdapterProducer implements AgoraKafkaPort {
     private final KafkaTemplate<String, Object> kafkaTemplate;
     @Value("${kafka-config.topics.my-account-data.name}")
     private String topicName;
@@ -24,22 +24,22 @@ public class MyAccountAdapterProducer implements MyAccountKafkaPort {
     private Long messageTtl;
 
     @Override
-    public void sendMyAccountData(MyAccountModel model) {
+    public void sendAgoraData(AgoraModel model) {
         kafkaTemplate.send(buildMessageWithPayload(toAvro(model), model.getStatus()));
     }
 
-    private MyAccountDataAvro toAvro(MyAccountModel model) {
-        return MyAccountDataAvro.newBuilder()
+    private AgoraDataAvro toAvro(AgoraModel model) {
+        return AgoraDataAvro.newBuilder()
                 .setCpf(model.getCpf())
-                .setName(model.getMyAccountDataModel().getName())
-                .setBaseYear(model.getMyAccountDataModel().getBaseYear())
-                .setBaseAmount(model.getMyAccountDataModel().getBaseAmount().toString())
-                .setCurrentYear(model.getMyAccountDataModel().getCurrentYear())
-                .setCurrentAmount(model.getMyAccountDataModel().getCurrentAmount().toString())
+                .setName(model.getAgoraDataModel().getName())
+                .setBaseYear(model.getAgoraDataModel().getBaseYear())
+                .setBaseAmount(model.getAgoraDataModel().getBaseAmount().toString())
+                .setCurrentYear(model.getAgoraDataModel().getCurrentYear())
+                .setCurrentAmount(model.getAgoraDataModel().getCurrentAmount().toString())
                 .build();
     }
 
-    private Message<MyAccountDataAvro> buildMessageWithPayload(MyAccountDataAvro avro, ProcessingStatusEnum status) {
+    private Message<AgoraDataAvro> buildMessageWithPayload(AgoraDataAvro avro, ProcessingStatusEnum status) {
         return MessageBuilder.withPayload(avro)
                 .setHeader("version", "1.0.0")
                 .setHeader("endOfLife", LocalDate.now().plusDays(messageTtl))
