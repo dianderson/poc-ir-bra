@@ -1,6 +1,6 @@
 clients:
-  my-account: 'localhost:3000/my-account'
-  agora: 'localhost:3000/agora'
+  my-account: 'localhost:5000/my-account'
+  agora: 'localhost:5000/agora'
 
 kafka-config:
   server-url: localhost:9092
