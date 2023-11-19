@@ -11,11 +11,18 @@ services:
     tty: true
     stdin_open: true
     environment:
-      - SPRING_PROFILES_ACTIVE=local
+      - SPRING_PROFILES_ACTIVE=docker
     networks:
       - poc-ir-bra_local-network
     ports:
       - "5000:5000"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 512M
+        reservations:
+          memory: 128M
 
 networks:
   poc-ir-bra_local-network:
