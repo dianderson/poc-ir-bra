@@ -1,0 +1,31 @@
+{
+  "name": "AgoraDataAvro",
+  "type": "record",
+  "namespace": "br.com.bra.integrationservice.avro",
+  "fields": [
+    {
+      "name": "cpf",
+      "type": "string"
+    },
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "baseYear",
+      "type": "int"
+    },
+    {
+      "name": "baseAmount",
+      "type": "string"
+    },
+    {
+      "name": "currentYear",
+      "type": "int"
+    },
+    {
+      "name": "currentAmount",
+      "type": "string"
+    }
+  ]
+}
