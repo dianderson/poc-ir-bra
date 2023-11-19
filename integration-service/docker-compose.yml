@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  app:
+    image: poc-pdir-integration-service:latest
+    container_name: poc-pdir-integration-service
+    build:
+      context: ./
+      args:
+        - JAR_FILE=build/libs/\*.jar
+    tty: true
+    stdin_open: true
+    environment:
+      - SPRING_PROFILES_ACTIVE=local
+    networks:
+      - poc-ir-bra_local-network
+    ports:
+      - "4000:4000"
+
+networks:
+  poc-ir-bra_local-network:
+    external: true

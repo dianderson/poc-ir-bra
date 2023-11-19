@@ -1,0 +1,17 @@
+clients:
+  my-account: 'localhost:3000/my-account'
+
+kafka-config:
+  server-url: localhost:9092
+  schema-registry-url: http://localhost:8081
+  group-id: 'integration-service-local'
+  concurrency: 5
+  topics:
+    request-data:
+      name: 'poc-request-data-local'
+    exception-messages:
+      name: 'poc-exception-messages-local'
+      ttl-in-days: 1
+    my-account-data:
+      name: 'poc-my-account-data-local'
+      ttl-in-days: 1

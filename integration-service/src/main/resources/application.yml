@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: 'integration-service-service'
+
+server:
+  port: 4000

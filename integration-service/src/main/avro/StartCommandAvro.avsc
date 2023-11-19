@@ -1,0 +1,15 @@
+{
+  "name": "StartCommandAvro",
+  "type": "record",
+  "namespace": "br.com.bra.integrationservice.avro",
+  "fields": [
+    {
+      "name": "cpf",
+      "type": "string"
+    },
+    {
+      "name": "year",
+      "type": "int"
+    }
+  ]
+}
