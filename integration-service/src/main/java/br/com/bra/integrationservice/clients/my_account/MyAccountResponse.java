@@ -1,6 +1,6 @@
 package br.com.bra.integrationservice.clients.my_account;
 
-import br.com.bra.integrationservice.domains.my_account.MyAccountModel;
+import br.com.bra.integrationservice.domains.my_account.models.MyAccountDataModel;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -11,11 +11,10 @@ public class MyAccountResponse {
     private String name;
     private BigDecimal amount;
 
-    public MyAccountModel toModel() {
-        MyAccountModel model = new MyAccountModel();
-        model.setCpf(cpf);
-        model.setName(name);
-        model.setAmount(amount);
-        return model;
+    public MyAccountDataModel toModel() {
+        return MyAccountDataModel.builder()
+                .name(name)
+                .amount(amount)
+                .build();
     }
 }

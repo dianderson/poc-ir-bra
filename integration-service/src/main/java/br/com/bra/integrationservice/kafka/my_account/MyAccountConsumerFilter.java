@@ -7,7 +7,7 @@ import org.springframework.kafka.listener.adapter.RecordFilterStrategy;
 @Configuration
 public class MyAccountConsumerFilter {
     @Bean
-    RecordFilterStrategy<String, String> MyAccountFilter() {
-        return rec -> !new String(rec.headers().lastHeader("products").value()).contains("MY_ACCOUNT");
+    RecordFilterStrategy<String, String> myAccountFilter() {
+        return rec -> !new String(rec.headers().lastHeader("Products").value()).contains("MY_ACCOUNT");
     }
 }

@@ -1,8 +1,9 @@
 clients:
   my-account: 'localhost:3000/my-account'
+  agora: 'localhost:3000/agora'
 
 kafka-config:
-  server-url: kafka:9092
+  server-url: kafka:29092
   schema-registry-url: http://schema-registry:8081
   group-id: 'integration-service-docker'
   concurrency: 5
@@ -13,5 +14,8 @@ kafka-config:
       name: 'poc-exception-messages-docker'
       ttl-in-days: 1
     my-account-data:
-      name: 'poc-my-account-data-docker'
+      name: 'poc-pdir-my-account-data-docker'
+      ttl-in-days: 1
+    agora-data:
+      name: 'poc-pdir-agora-data-docker'
       ttl-in-days: 1
