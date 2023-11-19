@@ -25,9 +25,9 @@ class RequestDataProducer(
 
     private fun RequestDataAvro.buildMessageWithPayload(products: Set<ProductEnum>) =
         MessageBuilder.withPayload(this)
-            .setHeader("version", "1.0.0")
-            .setHeader("endOfLife", LocalDateTime.now().plusDays(ttlInDays))
-            .setHeader("products", products)
+            .setHeader("Version", "1.0.0")
+            .setHeader("EndOfLife", LocalDateTime.now().plusDays(ttlInDays))
+            .setHeader("Products", products)
             .setHeader(KafkaHeaders.TOPIC, topicName)
             .setHeader(KafkaHeaders.KEY, "$cpf-$year")
             .build()

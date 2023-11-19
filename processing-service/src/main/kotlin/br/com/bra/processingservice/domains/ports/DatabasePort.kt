@@ -1,14 +1,11 @@
 package br.com.bra.processingservice.domains.ports
 
-import br.com.bra.processingservice.domains.inputs.CreatePdfDataInput
 import br.com.bra.processingservice.domains.inputs.ProcessIncomeReportInput
-import br.com.bra.processingservice.domains.models.IncomeDataModel
-import br.com.bra.processingservice.domains.models.IncomeRequestModel
+import br.com.bra.processingservice.domains.inputs.RegisterProductReturnInput
+import br.com.bra.processingservice.domains.models.IncomeReportModel
 
 interface DatabasePort {
-    fun verifyIfExists(cpf: String, year: Int): Boolean
-    fun findAllProcessedIncomeData(input: ProcessIncomeReportInput): List<IncomeDataModel>
-    fun registerRequest(input: ProcessIncomeReportInput)
-    fun createPdfData(input: CreatePdfDataInput): IncomeDataModel
-    fun removeProduct(input: CreatePdfDataInput): IncomeRequestModel
+    fun createNewRequest(input: ProcessIncomeReportInput)
+    fun findIncomeReportByProducts(input: ProcessIncomeReportInput): IncomeReportModel?
+    fun registerProductReturn(input: RegisterProductReturnInput)
 }

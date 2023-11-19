@@ -8,7 +8,7 @@ import jakarta.persistence.Enumerated
 import java.io.Serializable
 
 @Embeddable
-data class IncomeDataPK(
+data class IncomeReportPK(
     @field:Column(name = "cpf")
     val cpf: String,
     @field:Column(name = "year")

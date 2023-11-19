@@ -3,8 +3,8 @@ package br.com.bra.processingservice.kafka.consumers
 import br.com.bra.processingservice.avro.IncomePDFAvro
 import br.com.bra.processingservice.common.enums.ProcessingStatusEnum
 import br.com.bra.processingservice.common.enums.ProductEnum
-import br.com.bra.processingservice.domains.inputs.CreatePdfDataInput
-import br.com.bra.processingservice.domains.resources.CreatePdfData
+import br.com.bra.processingservice.domains.inputs.RegisterProductReturnInput
+import br.com.bra.processingservice.domains.resources.RegisterProductReturn
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class MyAccountPDFConsumer(
-    private val createPdfData: CreatePdfData
+    private val registerProductReturn: RegisterProductReturn
 ) {
     private val logger: Logger = LogManager.getLogger(MyAccountPDFConsumer::class.java)
 
@@ -24,7 +24,7 @@ class MyAccountPDFConsumer(
     )
     fun onListener(message: ConsumerRecord<String, IncomePDFAvro>, ack: Acknowledgment) {
         try {
-            createPdfData.execute(message.value().toModel())
+            registerProductReturn.execute(message.value().toModel())
             logger.info("Message consumed: ${message.value()}")
             ack.acknowledge()
         } catch (ex: Exception) {
@@ -32,7 +32,7 @@ class MyAccountPDFConsumer(
         }
     }
 
-    private fun IncomePDFAvro.toModel() = CreatePdfDataInput(
+    private fun IncomePDFAvro.toModel() = RegisterProductReturnInput(
         cpf = cpf,
         year = year,
         pdfData = pdfData,

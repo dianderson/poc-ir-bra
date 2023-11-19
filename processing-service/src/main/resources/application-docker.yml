@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: 'jdbc:postgresql://postgres:5432/PDIRDB00'
+    username: 'dsuser@PDIRDB00'
+    password: 'dspass@PDIRDB00'
+
+kafka-config:
+  server-url: kafka:29092
+  schema-registry-url: http://schema-registry:8081
+  concurrency: 5
+  topics:
+    request-data:
+      name: 'poc-pdir-request-data-docker'
+      ttl-in-days: 1
+    exception-messages:
+      name: 'poc-pdir-exception-messages-docker'
+    my-account-data:
+      name: 'poc-pdir-my-account-data-docker'
+    my-account-pdf:
+      name: 'poc-pdir-my-account-pdf-docker'
+    agora-data:
+      name: 'poc-pdir-agora-data-docker'
+    agora-pdf:
+      name: 'poc-pdir-agora-pdf-docker'

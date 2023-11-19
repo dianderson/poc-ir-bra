@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 class KafkaPortAdapter(
     private val requestDataProducer: RequestDataProducer
 ) : KafkaPort {
-    override fun process(input: ProcessIncomeReportInput) {
+    override fun sendToProcessing(input: ProcessIncomeReportInput) {
         requestDataProducer.publish(input)
     }
 }

@@ -1,5 +1,6 @@
 package br.com.bra.processingservice.domains.usecases
 
+import br.com.bra.processingservice.common.enums.ProcessingStatusEnum
 import br.com.bra.processingservice.domains.inputs.ProcessIncomeReportInput
 import br.com.bra.processingservice.domains.models.IncomeReportModel
 import br.com.bra.processingservice.domains.ports.DatabasePort
@@ -14,26 +15,17 @@ class ProcessIncomeReportsImpl(
     private val databasePort: DatabasePort
 ) : ProcessIncomeReports {
     @Transactional
-    override fun execute(input: ProcessIncomeReportInput): IncomeReportModel? = input
-        .verifyIfExists()
-        ?.verifyIfCompleted()
-        ?: run {
-            input.registerRequest()
-            input.sendToProcess()
-            null
+    override fun execute(input: ProcessIncomeReportInput): IncomeReportModel? {
+        val products = databasePort.findIncomeReportByProducts(input)
+        return when {
+            products == null -> input.processNewRequest()
+            products.incomeData.any { it.status == ProcessingStatusEnum.CREATED } -> null
+            else -> products
         }
+    }
 
-    private fun ProcessIncomeReportInput.verifyIfExists() =
-        takeIf { databasePort.verifyIfExists(cpf, year) }
-
-    private fun ProcessIncomeReportInput.verifyIfCompleted() =
-        databasePort.findAllProcessedIncomeData(this)
-            .takeIf { it.size == products.size }
-            ?.let { IncomeReportModel(cpf, year, it) }
-
-    private fun ProcessIncomeReportInput.registerRequest() =
-        databasePort.registerRequest(this)
-
-    private fun ProcessIncomeReportInput.sendToProcess() =
-        kafkaPort.process(this)
+    private fun ProcessIncomeReportInput.processNewRequest() =
+        databasePort.createNewRequest(this)
+            .let { kafkaPort.sendToProcessing(this) }
+            .let { null }
 }

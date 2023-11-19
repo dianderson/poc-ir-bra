@@ -13,14 +13,15 @@ import org.springframework.kafka.support.Acknowledgment
 import org.springframework.stereotype.Component
 
 @Component
-class AgoraPDFConsumer(
+class AgoraDataConsumer(
     private val registerProductReturn: RegisterProductReturn
 ) {
-    private val logger: Logger = LogManager.getLogger(AgoraPDFConsumer::class.java)
+    private val logger: Logger = LogManager.getLogger(AgoraDataConsumer::class.java)
 
     @KafkaListener(
-        topics = ["\${kafka-config.topics.agora-pdf.name}"],
-        groupId = "\${kafka-config.group-id}"
+        topics = ["\${kafka-config.topics.agora-data.name}"],
+        groupId = "\${kafka-config.group-id}",
+        filter = "notSuccess"
     )
     fun onListener(message: ConsumerRecord<String, IncomePDFAvro>, ack: Acknowledgment) {
         try {
@@ -35,7 +36,7 @@ class AgoraPDFConsumer(
     private fun IncomePDFAvro.toModel() = RegisterProductReturnInput(
         cpf = cpf,
         year = year,
-        pdfData = pdfData,
+        pdfData = null,
         product = ProductEnum.AGORA,
         status = ProcessingStatusEnum.valueOf(status)
     )
