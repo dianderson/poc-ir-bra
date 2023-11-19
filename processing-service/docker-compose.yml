@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  app:
+    image: processing-service-app:latest
+    container_name: processing-service-app
+    build:
+      context: ./
+      args:
+        - JAR_FILE=build/libs/\*.jar
+    tty: true
+    stdin_open: true
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - poc-ir-bra_local-network
+    ports:
+      - "2000:2000"
+
+networks:
+  poc-ir-bra_local-network:
+    external: true
