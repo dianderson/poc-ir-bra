@@ -13,10 +13,7 @@
     },
     {
       "name": "pdfData",
-      "type": [
-        "null",
-        "string"
-      ]
+      "type": "string"
     },
     {
       "name": "status",

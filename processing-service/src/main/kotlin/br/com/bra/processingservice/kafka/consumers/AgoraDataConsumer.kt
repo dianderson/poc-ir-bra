@@ -1,6 +1,6 @@
 package br.com.bra.processingservice.kafka.consumers
 
-import br.com.bra.processingservice.avro.IncomePDFAvro
+import br.com.bra.processingservice.avro.AgoraDataAvro
 import br.com.bra.processingservice.common.enums.ProcessingStatusEnum
 import br.com.bra.processingservice.common.enums.ProductEnum
 import br.com.bra.processingservice.domains.inputs.RegisterProductReturnInput
@@ -23,9 +23,9 @@ class AgoraDataConsumer(
         groupId = "\${kafka-config.group-id}",
         filter = "notSuccess"
     )
-    fun onListener(message: ConsumerRecord<String, IncomePDFAvro>, ack: Acknowledgment) {
+    fun onListener(message: ConsumerRecord<String, AgoraDataAvro>, ack: Acknowledgment) {
         try {
-            registerProductReturn.execute(message.value().toModel())
+            registerProductReturn.execute(message.value().toModel(message.headers().lastHeader("Status").value()))
             logger.info("Message consumed: ${message.value()}")
             ack.acknowledge()
         } catch (ex: Exception) {
@@ -33,11 +33,11 @@ class AgoraDataConsumer(
         }
     }
 
-    private fun IncomePDFAvro.toModel() = RegisterProductReturnInput(
+    private fun AgoraDataAvro.toModel(status: ByteArray) = RegisterProductReturnInput(
         cpf = cpf,
-        year = year,
+        year = currentYear,
         pdfData = null,
         product = ProductEnum.AGORA,
-        status = ProcessingStatusEnum.valueOf(status)
+        status = ProcessingStatusEnum.valueOf(String(status))
     )
 }

@@ -65,9 +65,12 @@ services:
     entrypoint: [ '/bin/sh', '-c' ]
     command: |
       "
-      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-exception-messages-local --replication-factor 1 --partitions 1
-      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-start-command-local --replication-factor 1 --partitions 5
-      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-my-account-data-local --replication-factor 1 --partitions 3
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-exception-messages-local --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-request-data-local --replication-factor 1 --partitions 5
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-my-account-data-local --replication-factor 1 --partitions 3
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-my-account-pdf-local --replication-factor 1 --partitions 3
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-agora-data-local --replication-factor 1 --partitions 3
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-agora-pdf-local --replication-factor 1 --partitions 3
       "
     networks:
       - local-network
