@@ -2,7 +2,7 @@ server:
   port: 2000
 spring:
   application:
-    name: 'poc-pdir-processing-service'
+    name: 'processing-service'
   jpa:
     open-in-view: true
 
