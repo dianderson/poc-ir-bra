@@ -65,12 +65,12 @@ services:
     entrypoint: [ '/bin/sh', '-c' ]
     command: |
       "
-      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-exception-messages-docker --replication-factor 1 --partitions 1
-      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-request-data-docker --replication-factor 1 --partitions 5
-      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-my-account-data-docker --replication-factor 1 --partitions 3
-      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-my-account-pdf-docker --replication-factor 1 --partitions 3
-      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-agora-data-docker --replication-factor 1 --partitions 3
-      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-agora-pdf-docker --replication-factor 1 --partitions 3
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-exception-messages-local --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-request-data-local --replication-factor 1 --partitions 5
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-my-account-data-local --replication-factor 1 --partitions 3
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-my-account-pdf-local --replication-factor 1 --partitions 3
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-agora-data-local --replication-factor 1 --partitions 3
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-agora-pdf-local --replication-factor 1 --partitions 3
       "
     networks:
       - local-network
@@ -111,38 +111,6 @@ services:
       CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
       CONFLUENT_METRICS_TOPIC_REPLICATION: 1
       PORT: 9021
-    networks:
-      - local-network
-
-  processing-service:
-    image: processing-service-app:latest
-    container_name: processing-service-app
-    build:
-      context: ./processing-service
-      args:
-        - JAR_FILE=build/libs/\*.jar
-    tty: true
-    stdin_open: true
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    ports:
-      - "2000:2000"
-    networks:
-      - local-network
-
-  integration-service:
-    image: integration-service-app:latest
-    container_name: integration-service-app
-    build:
-      context: ./integration-service
-      args:
-        - JAR_FILE=build/libs/\*.jar
-    tty: true
-    stdin_open: true
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    ports:
-      - "4000:4000"
     networks:
       - local-network
 

@@ -1,7 +1,7 @@
 {
   "name": "ExceptionMessagesAvro",
   "type": "record",
-  "namespace": "br.com.bra.processingservice.avro",
+  "namespace": "br.com.bra.pdir.avro",
   "fields": [
     {
       "name": "message",

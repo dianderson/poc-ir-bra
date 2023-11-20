@@ -1,9 +1,9 @@
 package br.com.bra.integrationservice.kafka.my_account;
 
-import br.com.bra.integrationservice.avro.RequestDataAvro;
 import br.com.bra.integrationservice.domains.my_account.inputs.MyAccountInput;
 import br.com.bra.integrationservice.domains.my_account.resources.ProcessMyAccount;
 import br.com.bra.integrationservice.kafka.common.ExceptionMessagesProducer;
+import br.com.bra.processingservice.avro.RequestDataAvro;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.logging.log4j.LogManager;

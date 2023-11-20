@@ -1,7 +1,7 @@
 {
   "name": "RequestDataAvro",
   "type": "record",
-  "namespace": "br.com.bra.integrationservice.avro",
+  "namespace": "br.com.bra.processingservice.avro",
   "fields": [
     {
       "name": "cpf",

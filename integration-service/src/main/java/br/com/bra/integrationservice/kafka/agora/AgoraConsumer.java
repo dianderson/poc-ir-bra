@@ -1,9 +1,9 @@
 package br.com.bra.integrationservice.kafka.agora;
 
-import br.com.bra.integrationservice.avro.RequestDataAvro;
 import br.com.bra.integrationservice.domains.agora.inputs.AgoraInput;
 import br.com.bra.integrationservice.domains.agora.resources.ProcessAgora;
 import br.com.bra.integrationservice.kafka.common.ExceptionMessagesProducer;
+import br.com.bra.processingservice.avro.RequestDataAvro;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.logging.log4j.LogManager;

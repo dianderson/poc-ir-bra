@@ -9,9 +9,9 @@ kafka-config:
   concurrency: 5
   topics:
     request-data:
-      name: 'poc-request-data-docker'
+      name: 'poc-pdir-request-data-docker'
     exception-messages:
-      name: 'poc-exception-messages-docker'
+      name: 'poc-pdir-exception-messages-docker'
       ttl-in-days: 1
     my-account-data:
       name: 'poc-pdir-my-account-data-docker'

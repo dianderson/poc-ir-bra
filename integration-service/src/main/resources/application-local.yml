@@ -9,9 +9,9 @@ kafka-config:
   concurrency: 5
   topics:
     request-data:
-      name: 'poc-request-data-local'
+      name: 'poc-pdir-request-data-local'
     exception-messages:
-      name: 'poc-exception-messages-local'
+      name: 'poc-pdir-exception-messages-local'
       ttl-in-days: 1
     my-account-data:
       name: 'poc-pdir-my-account-data-local'
