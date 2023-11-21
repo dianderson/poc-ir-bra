@@ -1,6 +1,6 @@
 package br.com.bra.integrationservice.kafka.common;
 
-import br.com.bra.integrationservice.avro.ErrorMessageAvro;
+import br.com.bra.pdir.avro.ErrorMessageAvro;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;

@@ -3,7 +3,7 @@ package br.com.bra.integrationservice.kafka.agora;
 import br.com.bra.integrationservice.domains.agora.inputs.AgoraInput;
 import br.com.bra.integrationservice.domains.agora.resources.ProcessAgora;
 import br.com.bra.integrationservice.kafka.common.ExceptionMessagesProducer;
-import br.com.bra.processingservice.avro.RequestDataAvro;
+import br.com.bra.pdir.avro.RequestDataAvro;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.logging.log4j.LogManager;
@@ -21,7 +21,7 @@ public class AgoraConsumer {
 
     @KafkaListener(
             topics = "${kafka-config.topics.request-data.name}",
-            groupId = "${kafka-config.group-id}",
+            groupId = "${kafka-config.group-id}-$agora",
             filter = "agoraFilter"
     )
     void onListener(ConsumerRecord<String, RequestDataAvro> message, Acknowledgment ack) {

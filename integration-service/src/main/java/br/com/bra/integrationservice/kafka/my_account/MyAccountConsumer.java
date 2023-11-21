@@ -3,7 +3,7 @@ package br.com.bra.integrationservice.kafka.my_account;
 import br.com.bra.integrationservice.domains.my_account.inputs.MyAccountInput;
 import br.com.bra.integrationservice.domains.my_account.resources.ProcessMyAccount;
 import br.com.bra.integrationservice.kafka.common.ExceptionMessagesProducer;
-import br.com.bra.processingservice.avro.RequestDataAvro;
+import br.com.bra.pdir.avro.RequestDataAvro;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.logging.log4j.LogManager;
@@ -21,7 +21,7 @@ public class MyAccountConsumer {
 
     @KafkaListener(
             topics = "${kafka-config.topics.request-data.name}",
-            groupId = "${kafka-config.group-id}",
+            groupId = "${kafka-config.group-id}-$my-account",
             filter = "myAccountFilter"
     )
     void onListener(ConsumerRecord<String, RequestDataAvro> message, Acknowledgment ack) {
