@@ -28,6 +28,7 @@ class IncomeReportsResources(
         @Valid @Min(2000) @Max(2023) @PathVariable year: Int,
         @RequestParam products: Set<ProductEnum>
     ): ResponseEntity<IncomeReportsResponse> = try {
+        logger.info("Request received - cpf: $cpf year: $year")
         ProcessIncomeReportInput(cpf = cpf, year = year, products = products)
             .let { processIncomeReports.execute(it) }
             ?.let { ResponseEntity.status(HttpStatus.OK).body(IncomeReportsResponse(it)) }

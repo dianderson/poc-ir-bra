@@ -8,7 +8,7 @@ import org.springframework.kafka.listener.adapter.RecordFilterStrategy
 @Configuration
 class DataConsumerNotSuccessFilter {
     @Bean
-    fun notSuccess(): RecordFilterStrategy<String?, String?> = RecordFilterStrategy { rec ->
-        rec.headers().lastHeader("Success").value().equals(false)
+    fun notSuccessFilter(): RecordFilterStrategy<String?, String?> = RecordFilterStrategy { rec ->
+        String(rec.headers().lastHeader("Status").value()).contains("SUCCESS")
     }
 }

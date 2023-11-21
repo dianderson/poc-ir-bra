@@ -1,6 +1,6 @@
 package br.com.bra.processingservice.kafka.consumers
 
-import br.com.bra.processingservice.avro.AgoraDataAvro
+import br.com.bra.pdir.avro.AgoraDataAvro
 import br.com.bra.processingservice.common.enums.ProcessingStatusEnum
 import br.com.bra.processingservice.common.enums.ProductEnum
 import br.com.bra.processingservice.domains.inputs.RegisterProductReturnInput
@@ -21,7 +21,7 @@ class AgoraDataConsumer(
     @KafkaListener(
         topics = ["\${kafka-config.topics.agora-data.name}"],
         groupId = "\${kafka-config.group-id}",
-        filter = "notSuccess"
+        filter = "notSuccessFilter"
     )
     fun onListener(message: ConsumerRecord<String, AgoraDataAvro>, ack: Acknowledgment) {
         try {
@@ -35,7 +35,7 @@ class AgoraDataConsumer(
 
     private fun AgoraDataAvro.toModel(status: ByteArray) = RegisterProductReturnInput(
         cpf = cpf,
-        year = currentYear,
+        year = year,
         pdfData = null,
         product = ProductEnum.AGORA,
         status = ProcessingStatusEnum.valueOf(String(status))

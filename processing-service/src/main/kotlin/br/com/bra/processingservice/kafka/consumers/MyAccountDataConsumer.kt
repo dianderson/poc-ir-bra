@@ -1,6 +1,6 @@
 package br.com.bra.processingservice.kafka.consumers
 
-import br.com.bra.processingservice.avro.MyAccountDataAvro
+import br.com.bra.pdir.avro.MyAccountDataAvro
 import br.com.bra.processingservice.common.enums.ProcessingStatusEnum
 import br.com.bra.processingservice.common.enums.ProductEnum
 import br.com.bra.processingservice.domains.inputs.RegisterProductReturnInput
@@ -21,7 +21,7 @@ class MyAccountDataConsumer(
     @KafkaListener(
         topics = ["\${kafka-config.topics.my-account-data.name}"],
         groupId = "\${kafka-config.group-id}",
-        filter = "notSuccess"
+        filter = "notSuccessFilter"
     )
     fun onListener(message: ConsumerRecord<String, MyAccountDataAvro>, ack: Acknowledgment) {
         try {
@@ -35,9 +35,9 @@ class MyAccountDataConsumer(
 
     private fun MyAccountDataAvro.toModel(status: ByteArray) = RegisterProductReturnInput(
         cpf = cpf,
-        year = currentYear,
+        year = year,
         pdfData = null,
-        product = ProductEnum.AGORA,
+        product = ProductEnum.MY_ACCOUNT,
         status = ProcessingStatusEnum.valueOf(String(status))
     )
 }

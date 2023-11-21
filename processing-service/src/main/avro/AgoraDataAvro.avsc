@@ -8,24 +8,28 @@
       "type": "string"
     },
     {
+      "name": "year",
+      "type": "int"
+    },
+    {
       "name": "name",
-      "type": "string"
+      "type": ["null", "string"]
     },
     {
       "name": "baseYear",
-      "type": "int"
+      "type": ["null", "int"]
     },
     {
       "name": "baseAmount",
-      "type": "string"
+      "type": ["null", "string"]
     },
     {
       "name": "currentYear",
-      "type": "int"
+      "type": ["null", "int"]
     },
     {
       "name": "currentAmount",
-      "type": "string"
+      "type": ["null", "string"]
     }
   ]
 }

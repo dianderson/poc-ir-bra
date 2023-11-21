@@ -1,6 +1,6 @@
 package br.com.bra.processingservice.kafka.consumers
 
-import br.com.bra.processingservice.avro.IncomePDFAvro
+import br.com.bra.pdir.avro.IncomePDFAvro
 import br.com.bra.processingservice.common.enums.ProcessingStatusEnum
 import br.com.bra.processingservice.common.enums.ProductEnum
 import br.com.bra.processingservice.domains.inputs.RegisterProductReturnInput
