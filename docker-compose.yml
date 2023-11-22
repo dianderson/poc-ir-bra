@@ -174,7 +174,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     ports:
-      - "5000:5000"
+      - "6000:6000"
     networks:
       - local-network
 
