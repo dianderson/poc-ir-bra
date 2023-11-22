@@ -145,6 +145,38 @@ services:
       - "4000:4000"
     networks:
       - local-network
+      
+  origin-service:
+    image: origin-service-app:latest
+    container_name: origin-service-app
+    build:
+      context: ./origin-service
+      args:
+        - JAR_FILE=build/libs/\*.jar
+    tty: true
+    stdin_open: true
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - "5000:5000"
+    networks:
+      - local-network
+
+  pdf-generator-service:
+    image: pdf-generator-service-app:latest
+    container_name: pdf-generator-service-app
+    build:
+      context: ./pdf-generator-service
+      args:
+        - JAR_FILE=build/libs/\*.jar
+    tty: true
+    stdin_open: true
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - "5000:5000"
+    networks:
+      - local-network
 
 networks:
   local-network:
