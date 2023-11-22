@@ -1,0 +1,18 @@
+kafka-config:
+  server-url: kafka:29092
+  schema-registry-url: http://schema-registry:8081
+  concurrency: 5
+  topics:
+    my-account-data:
+      name: 'poc-pdir-my-account-data-docker'
+    agora-data:
+      name: 'poc-pdir-agora-data-docker'
+    exception-messages:
+      name: 'poc-pdir-exception-messages-docker'
+      ttl-in-days: 1
+    my-account-pdf:
+      name: 'poc-pdir-my-account-pdf-docker'
+      ttl-in-days: 1
+    agora-pdf:
+      name: 'poc-pdir-agora-pdf-docker'
+      ttl-in-days: 1

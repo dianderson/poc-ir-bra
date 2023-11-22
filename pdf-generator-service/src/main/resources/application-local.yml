@@ -1,0 +1,18 @@
+kafka-config:
+  server-url: localhost:9092
+  schema-registry-url: http://localhost:8081
+  concurrency: 5
+  topics:
+    my-account-data:
+      name: 'poc-pdir-my-account-data-local'
+    agora-data:
+      name: 'poc-pdir-agora-data-local'
+    exception-messages:
+      name: 'poc-pdir-exception-messages-local'
+      ttl-in-days: 1
+    my-account-pdf:
+      name: 'poc-pdir-my-account-pdf-local'
+      ttl-in-days: 1
+    agora-pdf:
+      name: 'poc-pdir-agora-pdf-local'
+      ttl-in-days: 1

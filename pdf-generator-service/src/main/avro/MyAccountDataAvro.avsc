@@ -1,0 +1,35 @@
+{
+  "name": "MyAccountDataAvro",
+  "type": "record",
+  "namespace": "br.com.bra.pdir.avro",
+  "fields": [
+    {
+      "name": "cpf",
+      "type": "string"
+    },
+    {
+      "name": "year",
+      "type": "int"
+    },
+    {
+      "name": "name",
+      "type": ["null", "string"]
+    },
+    {
+      "name": "baseYear",
+      "type": ["null", "int"]
+    },
+    {
+      "name": "baseAmount",
+      "type": ["null", "string"]
+    },
+    {
+      "name": "currentYear",
+      "type": ["null", "int"]
+    },
+    {
+      "name": "currentAmount",
+      "type": ["null", "string"]
+    }
+  ]
+}

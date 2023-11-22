@@ -1,0 +1,8 @@
+server:
+  port: 6000
+spring:
+  application:
+    name: 'pdf-generator-service'
+
+kafka-config:
+  group-id: ${spring.application.name}
