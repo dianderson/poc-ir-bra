@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: origin-service
+  name: origin-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: origin-service
+  template:
+    metadata:
+      labels:
+        service: origin-service
+    spec:
+      containers:
+        - env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "docker"
+          image: diandersonmendonca/origin-service:1.0.0
+          name: origin-service
+          ports:
+            - containerPort: 5000
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: 250m
+            requests:
+              memory: 1Gi
+              cpu: 250m
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: origin-service
+  name: origin-service
+spec:
+  selector:
+    service: origin-service
+  ports:
+    - port: 5000
+      protocol: TCP
+      targetPort: 5000
+
+---
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: origin-service
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: origin-service
+  minReplicas: 1
+  maxReplicas: 2
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 60
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 2
+      policies:
+        - type: Percent
+          value: 50
+          periodSeconds: 2

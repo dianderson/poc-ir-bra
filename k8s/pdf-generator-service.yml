@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: pdf-generator-service
+  name: pdf-generator-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: pdf-generator-service
+  template:
+    metadata:
+      labels:
+        service: pdf-generator-service
+    spec:
+      containers:
+        - env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "docker"
+          image: diandersonmendonca/pdf-generator-service:1.0.0
+          name: pdf-generator-service
+          ports:
+            - containerPort: 6000
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: 250m
+            requests:
+              memory: 1Gi
+              cpu: 250m
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: pdf-generator-service
+  name: pdf-generator-service
+spec:
+  selector:
+    service: pdf-generator-service
+  ports:
+    - port: 6000
+      protocol: TCP
+      targetPort: 6000
+
+---
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: pdf-generator-service
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: pdf-generator-service
+  minReplicas: 1
+  maxReplicas: 2
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 60
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 2
+      policies:
+        - type: Percent
+          value: 50
+          periodSeconds: 2

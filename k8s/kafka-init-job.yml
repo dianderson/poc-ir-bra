@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kafka-init-job
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: kafka-init
+          image: confluentinc/cp-server:7.4.3
+          command:
+            - /bin/sh
+            - -c
+            - |
+              kafka-topics --create --if-not-exists --bootstrap-server kafka:29092 --replication-factor 1 --partitions 1 --topic poc-pdir-exception-messages-docker
+              kafka-topics --create --if-not-exists --bootstrap-server kafka:29092 --replication-factor 1 --partitions 3 --topic poc-pdir-request-data-docker       
+              kafka-topics --create --if-not-exists --bootstrap-server kafka:29092 --replication-factor 1 --partitions 2 --topic poc-pdir-my-account-data-docker
+              kafka-topics --create --if-not-exists --bootstrap-server kafka:29092 --replication-factor 1 --partitions 2 --topic poc-pdir-my-account-pdf-docker
+              kafka-topics --create --if-not-exists --bootstrap-server kafka:29092 --replication-factor 1 --partitions 2 --topic poc-pdir-agora-data-docker
+              kafka-topics --create --if-not-exists --bootstrap-server kafka:29092 --replication-factor 1 --partitions 2 --topic poc-pdir-agora-pdf-docker

@@ -115,8 +115,14 @@ services:
       - local-network
 
   processing-service:
-    image: diandersonmendonca/processing-service:1.0.0
+    image: processing-service-app:latest
     container_name: processing-service-app
+    build:
+      context: ./processing-service
+      args:
+        - JAR_FILE=build/libs/\*.jar
+    tty: true
+    stdin_open: true
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     ports:
@@ -125,8 +131,14 @@ services:
       - local-network
 
   integration-service:
-    image: diandersonmendonca/integration-service:1.0.0
+    image: integration-service-app:latest
     container_name: integration-service-app
+    build:
+      context: ./integration-service
+      args:
+        - JAR_FILE=build/libs/\*.jar
+    tty: true
+    stdin_open: true
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     ports:
@@ -135,18 +147,30 @@ services:
       - local-network
       
   origin-service:
-    image: diandersonmendonca/origin-service:1.0.0
+    image: origin-service-app:latest
     container_name: origin-service-app
+    build:
+      context: ./origin-service
+      args:
+        - JAR_FILE=build/libs/\*.jar
+    tty: true
+    stdin_open: true
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     ports:
       - "5000:5000"
     networks:
       - local-network
-      
+
   pdf-generator-service:
-    image: diandersonmendonca/pdf-generator-service:1.0.0
+    image: pdf-generator-service-app:latest
     container_name: pdf-generator-service-app
+    build:
+      context: ./pdf-generator-service
+      args:
+        - JAR_FILE=build/libs/\*.jar
+    tty: true
+    stdin_open: true
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     ports:

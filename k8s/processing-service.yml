@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: processing-service
+  name: processing-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: processing-service
+  template:
+    metadata:
+      labels:
+        service: processing-service
+    spec:
+      containers:
+        - env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "docker"
+          image: diandersonmendonca/processing-service:1.0.0
+          name: processing-service
+          ports:
+            - containerPort: 2000
+          resources:
+            requests:
+              memory: 1Gi
+              cpu: 250m
+            limits:
+              memory: 1Gi
+              cpu: 250m
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: processing-service
+  name: processing-service
+spec:
+  selector:
+    service: processing-service
+  ports:
+    - port: 2000
+      protocol: TCP
+      targetPort: 2000
+
+---
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: processing-service
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: processing-service
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 60
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 2
+      policies:
+        - type: Percent
+          value: 50
+          periodSeconds: 2

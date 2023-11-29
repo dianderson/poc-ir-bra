@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: integration-service
+  name: integration-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: integration-service
+  template:
+    metadata:
+      labels:
+        service: integration-service
+    spec:
+      containers:
+        - env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "docker"
+          image: diandersonmendonca/integration-service:1.0.0
+          name: integration-service
+          ports:
+            - containerPort: 4000
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: 250m
+            requests:
+              memory: 1Gi
+              cpu: 250m
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    service: integration-service
+  name: integration-service
+spec:
+  selector:
+    service: integration-service
+  ports:
+    - port: 4000
+      protocol: TCP
+      targetPort: 4000
+
+---
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: integration-service
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: integration-service
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 60
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 2
+      policies:
+        - type: Percent
+          value: 50
+          periodSeconds: 2

@@ -6,5 +6,6 @@ spring:
   jpa:
     open-in-view: true
 
+
 kafka-config:
   group-id: ${spring.application.name}

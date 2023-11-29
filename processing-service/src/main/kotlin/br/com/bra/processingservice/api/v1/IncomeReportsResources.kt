@@ -32,7 +32,7 @@ class IncomeReportsResources(
         ProcessIncomeReportInput(cpf = cpf, year = year, products = products)
             .let { processIncomeReports.execute(it) }
             ?.let { ResponseEntity.status(HttpStatus.OK).body(IncomeReportsResponse(it)) }
-            ?: ResponseEntity.status(HttpStatus.NO_CONTENT).build()
+            ?: ResponseEntity.status(HttpStatus.NOT_FOUND).build()
     } catch (ex: Exception) {
         logger.error("Error!!!")
         throw ex
