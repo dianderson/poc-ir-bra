@@ -5,7 +5,7 @@ metadata:
     service: processing-service
   name: processing-service
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       service: processing-service
@@ -24,11 +24,11 @@ spec:
             - containerPort: 2000
           resources:
             requests:
-              memory: 1Gi
-              cpu: 250m
+              memory: 512Mi
+              cpu: 125m
             limits:
-              memory: 1Gi
-              cpu: 250m
+              memory: 512Mi
+              cpu: 125m
 
 ---
 
@@ -57,8 +57,8 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: processing-service
-  minReplicas: 1
-  maxReplicas: 5
+  minReplicas: 3
+  maxReplicas: 7
   metrics:
     - type: Resource
       resource:

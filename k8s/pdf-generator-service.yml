@@ -24,11 +24,11 @@ spec:
             - containerPort: 6000
           resources:
             limits:
-              memory: 1Gi
-              cpu: 250m
+              memory: 512Mi
+              cpu: 125m
             requests:
-              memory: 1Gi
-              cpu: 250m
+              memory: 512Mi
+              cpu: 125m
 
 ---
 
@@ -58,7 +58,7 @@ spec:
     kind: Deployment
     name: pdf-generator-service
   minReplicas: 1
-  maxReplicas: 2
+  maxReplicas: 3
   metrics:
     - type: Resource
       resource:

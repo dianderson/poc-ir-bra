@@ -5,7 +5,7 @@ metadata:
     service: integration-service
   name: integration-service
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       service: integration-service
@@ -24,11 +24,11 @@ spec:
             - containerPort: 4000
           resources:
             limits:
-              memory: 1Gi
-              cpu: 250m
+              memory: 512Mi
+              cpu: 125m
             requests:
-              memory: 1Gi
-              cpu: 250m
+              memory: 512Mi
+              cpu: 125m
 
 ---
 
@@ -57,8 +57,8 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: integration-service
-  minReplicas: 1
-  maxReplicas: 3
+  minReplicas: 2
+  maxReplicas: 4
   metrics:
     - type: Resource
       resource:
