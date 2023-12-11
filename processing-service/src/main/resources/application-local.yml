@@ -1,12 +1,12 @@
 spring:
   datasource:
-    url: 'jdbc:postgresql://localhost:5432/PDIRDB00'
+    url: 'jdbc:postgresql://192.168.49.2:5432/PDIRDB00'
     username: 'dsuser@PDIRDB00'
     password: 'dspass@PDIRDB00'
 
 kafka-config:
-  server-url: localhost:9092
-  schema-registry-url: http://localhost:8081
+  server-url: 172.20.0.4:9092
+  schema-registry-url: http://172.20.0.5:8081
   concurrency: 5
   topics:
     request-data:

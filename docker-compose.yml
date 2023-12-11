@@ -66,7 +66,7 @@ services:
     command: |
       "
       kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-exception-messages-docker --replication-factor 1 --partitions 1
-      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-request-data-docker --replication-factor 1 --partitions 5
+      kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-request-data-docker --replication-factor 1 --partitions 4
       kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-my-account-data-docker --replication-factor 1 --partitions 3
       kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-my-account-pdf-docker --replication-factor 1 --partitions 3
       kafka-topics --bootstrap-server kafka:29092 --create --if-not-exists --topic poc-pdir-agora-data-docker --replication-factor 1 --partitions 3
@@ -123,6 +123,13 @@ services:
       - "2000:2000"
     networks:
       - local-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 512M
+        reservations:
+          memory: 512M
 
   integration-service:
     image: diandersonmendonca/integration-service:1.0.0
@@ -133,6 +140,13 @@ services:
       - "4000:4000"
     networks:
       - local-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 512M
+        reservations:
+          memory: 512M
       
   origin-service:
     image: diandersonmendonca/origin-service:1.0.0
@@ -143,6 +157,13 @@ services:
       - "5000:5000"
     networks:
       - local-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 512M
+        reservations:
+          memory: 512M
       
   pdf-generator-service:
     image: diandersonmendonca/pdf-generator-service:1.0.0
@@ -153,6 +174,13 @@ services:
       - "6000:6000"
     networks:
       - local-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 512M
+        reservations:
+          memory: 512M
 
 networks:
   local-network:

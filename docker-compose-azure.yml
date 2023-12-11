@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+  redis:
+    image: redis:7.2.3-alpine
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=Redis@123
+
+  storage-queue:
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: storage-queue
+    restart: unless-stopped
+    ports:
+      - "8888:10001"
+
+  cosmos-db:
+    image: mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator:mongodb
+    container_name: cosmos-db
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+      - "10250:10250"
+    environment:
+      - AZURE_COSMOS_EMULATOR_ENABLE_MONGODB_ENDPOINT=4.0
+      - AZURE_COSMOS_EMULATOR_PARTITION_COUNT=3
+
+  functions:
+    image: mcr.microsoft.com/azure-functions/python:4-python3.11
+    container_name: functions
+    ports:
+      - "5555:80"
+
+networks:
+  local-network:
+    driver: bridge
